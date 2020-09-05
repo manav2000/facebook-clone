@@ -30,7 +30,7 @@
     color: rgba(255, 255, 255, 0.75);
 }
 
-@media (max-width: 120px) {
+@media (max-width: 1200px) {
     .messageSender__top>form>button {
         display: visible;
     }
@@ -54,5 +54,16 @@
     flex-direction: row;
     padding: 20px;
     margin: 5px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.messageSender__option>h3 {
+    font-size: medium;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.messageSender__option:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
 }
