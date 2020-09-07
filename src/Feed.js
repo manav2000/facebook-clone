@@ -1,21 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import StoryReel from './StoryReel';
 import MessageSender from './MessageSender';
 import Post from './Post';
 import './Feed.css';
+import db from './firebase';
 
 function Feed() {
+
+    const [posts, setPosts] = useState([]);
+
+    useEffect(() => {
+        db.collection('posts')
+            .orderBy('timestamp', 'desc')
+            .onSnapshot(snaphot => {
+                setPosts(snaphot.docs.map(doc => ({ id: doc.id, data: doc.data() })))
+            });
+    }, []);
+
     return (
         <div className="feed">
             <StoryReel />
             <MessageSender />
-            <Post
-                profilePic="profile.jpg"
-                image="https://fcwallpaper.com/wp-content/uploads/2020/05/HD-Desktop-Wallpaper-Chelsea-FC.jpg"
-                username="Manav Parmar"
-                timestamp=""
-                message="My favourite club"
-            />
+            {posts.map(post => (
+                <Post
+                    key={post.id}
+                    profilePic={post.data.profilePic}
+                    image={post.data.image}
+                    username={post.data.username}
+                    timestamp={post.data.timestamp}
+                    message={post.data.message}
+                />
+            )
+            )}
         </div>
     )
 }
